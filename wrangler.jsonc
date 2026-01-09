@@ -25,7 +25,7 @@
     "mode": "smart",
   },
   "compatibility_date": "2025-11-17",
-  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "compatibility_flags": ["nodejs_compat"],
   "name": "astro",
   "main": "./dist/_worker.js/index.js",
   "assets": {
