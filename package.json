@@ -1,0 +1,48 @@
+{
+  "name": "astro",
+  "type": "module",
+  "version": "26.1.9",
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,mts,cts}": [
+      "eslint",
+      "prettier --write --ignore-unknown"
+    ],
+    "*.css": [
+      "stylelint",
+      "prettier --write --ignore-unknown"
+    ],
+    "!(*.{js,mjs,cjs,ts,mts,cts,css})": "prettier --write --ignore-unknown"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro build && wrangler dev",
+    "astro": "astro",
+    "deploy": "astro build && wrangler deploy",
+    "cf-typegen": "wrangler types",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.6.12",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.7",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/node": "^25.0.3",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard": "^39.0.1",
+    "typescript-eslint": "^8.52.0",
+    "wrangler": "^4.58.0"
+  }
+}
