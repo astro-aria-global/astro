@@ -5,7 +5,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default defineConfig([
-  globalIgnores(["worker-configuration.d.ts"]),
+  globalIgnores([".astro", "dist", "worker-configuration.d.ts"]),
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     plugins: { js },
