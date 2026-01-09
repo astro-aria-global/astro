@@ -18,7 +18,6 @@
     "build": "astro check && astro build",
     "preview": "astro build && wrangler dev",
     "astro": "astro",
-    "deploy": "wrangler deploy",
     "cf-typegen": "wrangler types",
     "prepare": "husky"
   },
