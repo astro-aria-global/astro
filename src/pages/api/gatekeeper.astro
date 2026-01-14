@@ -127,8 +127,8 @@ else if (Astro.request.method === "POST") {
     // 4. Construct request to vercel helper
     else {
       const payload = JSON.stringify({
-        inputpassword: password,
-        hashedvalue: desiredHash,
+        inputPassword: password,
+        hashedValue: desiredHash,
       });
       const VERCEL_FIREWALL_AUTH = await env.VERCEL_FIREWALL_AUTH.get();
       const HMAC_CF_TO_VERCEL = await env.HMAC_CF_TO_VERCEL.get();
