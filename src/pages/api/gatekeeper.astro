@@ -85,14 +85,14 @@ if (Astro.request.method === "GET") {
 
   // 1. Return 404 if no slug
   if (!slug) {
-    return Astro.redirect("/404");
+    return new Response(null, { status: 404, statusText: "Not Found" });
   }
 
   const entry = await getEntry("posts", slug);
 
   // 2. Return 404 if no post matches slug
   if (!entry) {
-    return Astro.redirect("/404");
+    return new Response(null, { status: 404, statusText: "Not Found" });
   }
 
   question = md.render(entry.data.question || "Please verify your identity.");
