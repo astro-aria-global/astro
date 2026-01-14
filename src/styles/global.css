@@ -1,227 +1,141 @@
+/* src/styles/global.css */
 @import url("tailwindcss");
 
-@plugin "@tailwindcss/typography";
+/* -------------------------
+   Root & Background
+-------------------------- */
+:root {
+  --bg-start: #414345;
+  --bg-end: #232526;
+  --text-primary: #e5e7eb; /* gray-200 */
+  --text-secondary: #9ca3af; /* gray-400 */
+  --accent: #60a5fa; /* blue-400 */
+}
 
 html,
 body {
-  font-family: system-ui, sans-serif;
-  background: #f4f4f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  margin: 0;
+  min-height: 100%;
 }
 
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
-  width: 100%;
-  max-width: 400px;
+body {
+  @apply font-sans antialiased;
+
+  color: var(--text-primary);
+  background: #232526; /* fallback */
+  background: linear-gradient(to right, var(--bg-start), var(--bg-end));
+  background: linear-gradient(to right, var(--bg-start), var(--bg-end));
+}
+
+/* -------------------------
+   Global Typography
+-------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-semibold tracking-tight text-gray-100;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin: 0;
-  margin-bottom: 1rem;
-  font-weight: 800;
-  color: #111827;
+  @apply text-3xl md:text-4xl;
+}
+
+h2 {
+  @apply text-2xl md:text-3xl;
+}
+
+h3 {
+  @apply text-xl md:text-2xl;
 }
 
 p {
-  color: #52525b;
-  margin-bottom: 1.5rem;
+  @apply leading-relaxed text-gray-300;
 }
 
-input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #d4d4d8;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  box-sizing: border-box;
+small {
+  @apply text-gray-400;
 }
 
-button {
-  width: 100%;
-  background: #2563eb;
-  color: white;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
+/* -------------------------
+   Links
+-------------------------- */
+a {
+  @apply text-blue-400 underline-offset-4 transition-colors;
 }
 
-button:hover {
-  background: #1d4ed8;
+a:hover {
+  @apply text-blue-300 underline;
 }
 
-.error {
-  color: #dc2626;
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  background: #fef2f2;
-  border-radius: 4px;
+/* -------------------------
+   Layout Containers
+-------------------------- */
+.page-wrapper {
+  @apply flex min-h-screen flex-col;
 }
 
-.turnstile-box {
-  margin-bottom: 1rem;
+.main-content {
+  @apply mx-auto max-w-3xl flex-1 px-4 py-12;
 }
 
-.prose ul {
-  list-style-type: disc !important;
-  padding-left: 1.5rem !important;
+/* -------------------------
+   Header / Footer
+-------------------------- */
+.site-header {
+  @apply border-b border-white/10 backdrop-blur;
 }
 
-.prose ol {
-  list-style-type: decimal !important;
-  padding-left: 1.5rem !important;
+.site-header-inner {
+  @apply mx-auto flex max-w-3xl items-center justify-between px-4 py-6;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  padding: 2rem;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
-  color: #1f2937;
+.site-footer {
+  @apply border-t border-white/10 py-6 text-center text-sm text-gray-400;
 }
 
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 800px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 10%);
-  overflow: hidden;
-  border: 1px solid #e5e7eb;
+/* -------------------------
+   Cards (posts, archive items)
+-------------------------- */
+.card {
+  @apply rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur transition;
 }
 
-/* Image Styling */
-.image-container {
-  width: 100%;
-  background-color: #000; /* http.cat images usually have black borders */
-  display: flex;
-  justify-content: center;
+.card:hover {
+  @apply border-white/20 bg-white/10;
 }
 
-.image-container img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* -------------------------
+   Buttons
+-------------------------- */
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition;
 }
 
-/* Text & Card Styling */
-.info-card {
-  padding: 2.5rem;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
+.btn-primary {
+  @apply bg-blue-500 text-white hover:bg-blue-400;
 }
 
-.subtitle {
-  font-size: 1.25rem;
-  color: #6b7280;
-  margin-top: 0.5rem;
-  margin-bottom: 2rem;
+.btn-secondary {
+  @apply border border-white/20 text-gray-200 hover:bg-white/10;
 }
 
-/* Knowledge Box Styling */
-.knowledge-box {
-  background-color: #f3f4f6;
-  border-left: 4px solid #3b82f6; /* Blue accent */
-  padding: 1.5rem;
-  border-radius: 0 8px 8px 0;
-  text-align: left;
-  margin-bottom: 2.5rem;
+/* -------------------------
+   Forms (password page)
+-------------------------- */
+input,
+textarea {
+  @apply w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-gray-100 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none;
 }
 
-.knowledge-box h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #3b82f6;
+/* -------------------------
+   Utility
+-------------------------- */
+.muted {
+  @apply text-gray-400;
 }
 
-.knowledge-box p {
-  margin: 0 0 1rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #374151;
-}
-
-.knowledge-box p:last-child {
-  margin-bottom: 0;
-}
-
-/* Button Styling */
-.home-button {
-  display: inline-block;
-  background-color: #111827;
-  color: #fff;
-  text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.home-button:hover {
-  background-color: #374151;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
-}
-
-/* Dark Mode Support (Optional) */
-@media (prefers-color-scheme: dark) {
-  .container {
-    color: #f3f4f6;
-  }
-
-  .content-wrapper {
-    background: #1f2937;
-    border-color: #374151;
-  }
-
-  h1 {
-    color: #f9fafb;
-  }
-
-  .subtitle {
-    color: #9ca3af;
-  }
-
-  .knowledge-box {
-    background-color: #111827;
-    border-color: #60a5fa;
-  }
-
-  .knowledge-box h3 {
-    color: #60a5fa;
-  }
-
-  .knowledge-box p {
-    color: #d1d5db;
-  }
-
-  .home-button {
-    background-color: #f9fafb;
-    color: #111827;
-  }
-
-  .home-button:hover {
-    background-color: #e5e7eb;
-  }
+.divider {
+  @apply my-8 border-t border-white/10;
 }

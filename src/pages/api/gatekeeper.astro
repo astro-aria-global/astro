@@ -3,7 +3,7 @@ import { getEntry } from "astro:content";
 import { SignJWT } from "jose";
 import crypto from "node:crypto";
 import MarkdownIt from "markdown-it";
-import "../../styles/global.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export const prerender = false;
 
@@ -201,47 +201,34 @@ else if (Astro.request.method === "POST") {
 }
 ---
 
-<html lang="en">
-  <head>
-    <link rel="preconnect" href="https://challenges.cloudflare.com" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restricted Access</title>
-    <script
-      is:inline
-      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-      async
-      defer></script>
-  </head>
-  <body>
-    <div class="card">
-      <h1>🔒 Protected Content</h1>
-      <div
-        class="prose prose-slate dark:prose-invert max-w-none"
-        set:html={question}
+<BaseLayout title="Not Found">
+  <div class="space-y-6 text-center">
+    <h1>🔒 Protected Content</h1>
+    <div
+      class="prose prose-slate dark:prose-invert max-w-none"
+      set:html={question}
+    />
+    {errorMsg && <div class="error">{errorMsg}</div>}
+    <form class="card mx-auto max-w-sm space-y-4" method="POST">
+      <input type="hidden" name="slug" value={slug} />
+      <label for="password" style="display:none">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="inputpassword"
+        placeholder="Enter access code..."
+        required
+        autofocus
       />
-      {errorMsg && <div class="error">{errorMsg}</div>}
-      <form method="POST">
-        <input type="hidden" name="slug" value={slug} />
-        <label for="password" style="display:none">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="inputpassword"
-          placeholder="Enter access code..."
-          required
-          autofocus
-        />
-        <div class="turnstile-box">
-          <div
-            class="cf-turnstile"
-            data-sitekey="0x4AAAAAACJAeTxKo8GeSG3v"
-            data-size="flexible"
-          >
-          </div>
+      <div class="turnstile-box">
+        <div
+          class="cf-turnstile"
+          data-sitekey="0x4AAAAAACJAeTxKo8GeSG3v"
+          data-size="flexible"
+        >
         </div>
-        <button type="submit">Unlock</button>
-      </form>
-    </div>
-  </body>
-</html>
+      </div>
+      <button class="btn btn-primary w-full" type="submit">Unlock</button>
+    </form>
+  </div>
+</BaseLayout>

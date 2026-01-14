@@ -1,6 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
+import PostsLayout from "../../layouts/PostsLayout.astro";
 
 // This is route for static posts without protection
 
@@ -31,6 +31,6 @@ const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Layout>
+<PostsLayout>
   <Content />
-</Layout>
+</PostsLayout>

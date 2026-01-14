@@ -1,6 +1,6 @@
 ---
 import { type CollectionEntry, getEntry, render } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
+import PostsLayout from "../../layouts/PostsLayout.astro";
 import { jwtVerify } from "jose";
 
 // This is route for dynamic posts with protection
@@ -89,6 +89,6 @@ type Props = CollectionEntry<"posts">;
 const { Content } = await render(post);
 ---
 
-<Layout>
+<PostsLayout>
   <Content />
-</Layout>
+</PostsLayout>

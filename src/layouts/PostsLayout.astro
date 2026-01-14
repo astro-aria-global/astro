@@ -1,0 +1,18 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import "../styles/post.css";
+
+const { title, date } = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <article class="prose-article">
+    <header class="space-y-2">
+      <h1>{title}</h1>
+      <small>{date}</small>
+      <div class="divider"></div>
+    </header>
+
+    <slot />
+  </article>
+</BaseLayout>

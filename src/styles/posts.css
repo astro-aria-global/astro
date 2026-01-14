@@ -1,0 +1,34 @@
+/* src/styles/post.css */
+@import url("tailwindcss");
+
+.prose-article {
+  @apply space-y-6;
+}
+
+.prose-article p {
+  @apply leading-7 text-gray-300;
+}
+
+.prose-article h2 {
+  @apply mt-10;
+}
+
+.prose-article ul {
+  @apply list-disc pl-6 text-gray-300;
+}
+
+.prose-article ol {
+  @apply list-decimal pl-6 text-gray-300;
+}
+
+.prose-article blockquote {
+  @apply border-l-4 border-blue-400/50 pl-4 text-gray-400 italic;
+}
+
+.prose-article code {
+  @apply rounded bg-black/40 px-1 py-0.5 text-sm text-blue-300;
+}
+
+.prose-article pre {
+  @apply overflow-x-auto rounded-xl bg-black/50 p-4 text-sm;
+}
