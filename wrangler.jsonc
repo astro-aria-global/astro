@@ -32,4 +32,37 @@
     "binding": "ASSETS",
     "directory": "./dist",
   },
+  "secrets_store_secrets": [
+    {
+      "binding": "TURNSTILE_SECRET",
+      "store_id": "c5b03c1fc22547d0bb1ee70629d4b6dd",
+      "secret_name": "turnstile",
+    },
+    {
+      "binding": "VERCEL_FIREWALL_AUTH",
+      "store_id": "c5b03c1fc22547d0bb1ee70629d4b6dd",
+      "secret_name": "vercelfirewall",
+    },
+    {
+      "binding": "HMAC_CF_TO_VERCEL",
+      "store_id": "c5b03c1fc22547d0bb1ee70629d4b6dd",
+      "secret_name": "hmac_trifocals",
+    },
+    {
+      "binding": "HMAC_VERCEL_TO_CF",
+      "store_id": "c5b03c1fc22547d0bb1ee70629d4b6dd",
+      "secret_name": "hmac_thicken",
+    },
+    {
+      "binding": "JWT_SECRET",
+      "store_id": "c5b03c1fc22547d0bb1ee70629d4b6dd",
+      "secret_name": "jwtsecret",
+    },
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "HASH_KV",
+      "id": "d0d8487be52b40b8b94b1c454a2a84bf",
+    },
+  ],
 }

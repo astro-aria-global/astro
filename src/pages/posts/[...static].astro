@@ -1,0 +1,36 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+// This is route for static posts without protection
+
+export async function getStaticPaths() {
+  const now = new Date();
+
+  // Filter out posts without protection properly
+  const posts = await getCollection("posts", ({ data }) => {
+    const isFuture = data.pubDate > now;
+    const isDraft = data.draft === true;
+    const isEncrypted = data.encrypt === true;
+    const hasPassInfo =
+      (data.password && data.password.trim() !== "") ||
+      (data.question && data.question.trim() !== "");
+
+    return !isFuture && !isDraft && !isEncrypted && !hasPassInfo;
+  });
+
+  return posts.map((post) => ({
+    params: { static: post.id },
+    props: post,
+  }));
+}
+
+type Props = CollectionEntry<"posts">;
+
+const post = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout>
+  <Content />
+</Layout>

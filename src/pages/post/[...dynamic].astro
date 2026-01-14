@@ -1,0 +1,94 @@
+---
+import { type CollectionEntry, getEntry, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { jwtVerify } from "jose";
+
+// This is route for dynamic posts with protection
+
+export const prerender = false;
+
+interface Env {
+  HASH_KV: KVNamespace;
+  TURNSTILE_SECRET: string;
+  HMAC_CF_TO_VERCEL: string;
+  HMAC_VERCEL_TO_CF: string;
+  JWT_SECRET: string;
+  VERCEL_FIREWALL_AUTH: string;
+}
+
+// Get slug from param
+const { dynamic } = Astro.params;
+
+if (!dynamic) {
+  return new Response(null, { status: 404, statusText: "Not Found" });
+}
+
+// Get post according to slug
+const post = await getEntry("posts", dynamic);
+
+if (!post) {
+  return new Response(null, { status: 404, statusText: "Not Found" });
+}
+
+const { data } = post;
+const now = new Date();
+
+// Check if it's draft/future post
+const isFuture = data.pubDate > now;
+const isDraft = data.draft === true;
+
+if (isFuture || isDraft) {
+  return new Response(null, { status: 404, statusText: "Not Found" });
+}
+
+// Handle encrypted posts
+const isEncrypted = data.encrypt === true;
+const hasPassInfo =
+  (data.password && data.password.trim() !== "") ||
+  (data.question && data.question.trim() !== "");
+
+if (isEncrypted || hasPassInfo) {
+  // Fetch JWT token
+  const safeCookieKey = dynamic.replaceAll("/", "_");
+  const cookieName = `post_access_${safeCookieKey}`;
+  const token = Astro.cookies.get(cookieName)?.value;
+  let isAuthorized = false;
+
+  // Verify JWT token if it exists
+  if (token) {
+    try {
+      const { env } = Astro.locals.runtime;
+      const JWT_SECRET = await env.JWT_SECRET.get();
+      const secret = new TextEncoder().encode(JWT_SECRET);
+      const { payload } = await jwtVerify(token, secret, { subject: dynamic });
+
+      if (payload.slug === dynamic) {
+        isAuthorized = true;
+      }
+    } catch (error) {
+      console.error(
+        "JWT Verification failed:",
+        error instanceof Error ? error.name : "UnknownError",
+      );
+    }
+  }
+
+  // Redirect to gatekeeper if not verified
+  if (!isAuthorized) {
+    return Astro.redirect(`/api/gatekeeper?slug=${dynamic}`);
+  }
+}
+
+// Redirect to static post for static generated posts
+else {
+  return Astro.redirect(`/posts/${dynamic}`);
+}
+
+type Props = CollectionEntry<"posts">;
+
+const { Content } = await render(post);
+---
+
+<Layout>
+  <Content />
+</Layout>
