@@ -15,7 +15,6 @@ const CONTENT_DIR = "src/contents";
 const DEFAULT_PASSWORD = process.env.DEFAULT_PASSWORD;
 const CF_ACCOUNT_ID = process.env.CF_ACCOUNT_ID;
 const CF_KV_ID = process.env.CF_KV_ID;
-const CF_API_KEY = process.env.CF_API_KEY;
 
 // Helper function to handle cli args
 const argv = yargs(hideBin(process.argv))
@@ -66,7 +65,7 @@ async function main() {
     `--- Password Hashing Utility [Dry: ${argv.dry || false}, Force: ${argv.force || false}] ---`,
   );
 
-  if (!argv.dry && (!CF_ACCOUNT_ID || !CF_KV_ID || !CF_API_KEY)) {
+  if (!argv.dry && (!CF_ACCOUNT_ID || !CF_KV_ID)) {
     console.error(
       "❌ Error: Missing Cloudflare Environment Variables for KV upload.",
     );
@@ -133,9 +132,7 @@ async function main() {
   }
 
   // Step 6: Initialize cloudflare client
-  const client = new Cloudflare({
-    apiToken: CF_API_KEY,
-  });
+  const client = new Cloudflare({});
 
   let finalPayload = itemsToUpload;
 
