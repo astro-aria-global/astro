@@ -1,5 +1,5 @@
 /* src/styles/post.css */
-@import url("tailwindcss");
+@import "tailwindcss";
 
 .prose-article {
   @apply space-y-6;

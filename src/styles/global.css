@@ -1,5 +1,9 @@
 /* src/styles/global.css */
-@import url("tailwindcss");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui;
+}
 
 /* -------------------------
    Root & Background
