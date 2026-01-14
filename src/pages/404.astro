@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const title = "404 - Page Not Found";
+const description = "Oops! The page you are looking for has vanished.";
+---
+
+<Layout title={title}>
+  <main class="container">
+    <div class="content-wrapper">
+      <div class="image-container">
+        <img
+          src="https://http.cat/404"
+          alt="404 Cat: Not Found"
+          width="750"
+          height="600"
+          loading="eager"
+        />
+      </div>
+
+      <div class="info-card">
+        <h1>404 Not Found</h1>
+        <p class="subtitle">The server cannot find the requested resource.</p>
+
+        <div class="knowledge-box">
+          <h3>💡 HTTP Knowledge</h3>
+          <p>
+            In computer network communications, <strong>HTTP 404</strong> is an error
+            message indicating that the browser was able to communicate with a given
+            server, but the server could not find what was requested.
+          </p>
+          <p>
+            Unlike a "Server Not Found" error (which means the connection failed
+            entirely), a 404 means the connection is fine, but the specific page
+            or file is missing.
+          </p>
+        </div>
+
+        <a href="/" class="home-button"> ← Return to Home </a>
+      </div>
+    </div>
+  </main>
+</Layout>
