@@ -83,15 +83,19 @@ if (Astro.request.method === "GET") {
   const url = new URL(Astro.request.url);
   slug = url.searchParams.get("slug") || "";
 
-  if (slug) {
-    const entry = await getEntry("posts", slug);
-
-    if (entry) {
-      question = md.render(
-        entry.data.question || "Please verify your identity.",
-      );
-    }
+  // 1. Return 404 if no slug
+  if (!slug) {
+    return Astro.redirect("/404");
   }
+
+  const entry = await getEntry("posts", slug);
+
+  // 2. Return 404 if no post matches slug
+  if (!entry) {
+    return Astro.redirect("/404");
+  }
+
+  question = md.render(entry.data.question || "Please verify your identity.");
 }
 
 // Step 3: POST request: validate password
